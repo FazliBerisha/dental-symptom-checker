@@ -3,39 +3,86 @@ import { AlertCircle, CheckCircle, Info, AlertTriangle, Pill, Search } from 'luc
 import './App.css';
 
 const DentalSymptomChecker = () => {
-  const [symptoms, setSymptoms] = useState([]);
+  const [symptoms, setSymptoms] = useState([
+    { id: 'toothache', name: 'Toothache / Tooth Pain' },
+    { id: 'sensitivity', name: 'Tooth Sensitivity' },
+    { id: 'bleeding-gums', name: 'Bleeding Gums' },
+    { id: 'swollen-gums', name: 'Swollen Gums' },
+    { id: 'bad-breath', name: 'Bad Breath (Halitosis)' },
+    { id: 'jaw-pain', name: 'Jaw Pain / TMJ' },
+    { id: 'loose-tooth', name: 'Loose Tooth' },
+    { id: 'cracked-tooth', name: 'Cracked or Chipped Tooth' },
+    { id: 'dry-mouth', name: 'Dry Mouth' },
+    { id: 'mouth-sores', name: 'Mouth Sores / Ulcers' }
+  ]);
   const [selectedSymptom, setSelectedSymptom] = useState('');
   const [result, setResult] = useState(null);
-  const [preventionTips, setPreventionTips] = useState([]);
+  const [preventionTips, setPreventionTips] = useState([
+    'Brush your teeth twice daily with fluoride toothpaste',
+    'Floss daily to remove plaque between teeth',
+    'Use an antibacterial mouthwash to reduce bacteria',
+    'Limit sugary and acidic foods and drinks',
+    'Visit your dentist regularly for checkups and cleanings',
+    'Replace your toothbrush every 3-4 months',
+    'Avoid tobacco products and excessive alcohol consumption',
+    'Drink plenty of water throughout the day',
+    'Consider a mouth guard if you grind your teeth at night',
+    'Eat a balanced diet rich in calcium and vitamins'
+  ]);
   const [drugInfo, setDrugInfo] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/symptoms')
+    const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+    
+    // Try to fetch from backend, but fall back to hardcoded data
+    fetch(`${API_BASE}/api/symptoms`)
       .then(response => response.json())
-      .then(data => setSymptoms(data))
-      .catch(error => console.error('Error fetching symptoms:', error));
+      .then(data => {
+        if (data && data.length > 0) {
+          setSymptoms(data);
+        }
+      })
+      .catch(error => {
+        console.log('Using default symptoms (backend not available)');
+        // Keep hardcoded symptoms if backend fails
+      });
 
-    fetch('http://localhost:3000/api/prevention-tips')
+    fetch(`${API_BASE}/api/prevention-tips`)
       .then(response => response.json())
-      .then(data => setPreventionTips(data))
-      .catch(error => console.error('Error fetching prevention tips:', error));
+      .then(data => {
+        if (data && data.length > 0) {
+          setPreventionTips(data);
+        }
+      })
+      .catch(error => {
+        console.log('Using default prevention tips (backend not available)');
+        // Keep hardcoded tips if backend fails
+      });
   }, []);
 
   const handleSymptomChange = async (symptomId) => {
+    const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:3000';
     setSelectedSymptom(symptomId);
     if (symptomId) {
       try {
-        const symptomResponse = await fetch(`http://localhost:3000/api/symptoms/${symptomId}`);
+        const symptomResponse = await fetch(`${API_BASE}/api/symptoms/${symptomId}`);
         const symptomData = await symptomResponse.json();
         setResult(symptomData);
         
-        const drugResponse = await fetch(`http://localhost:3000/api/drug-info/${symptomId}`);
+        const drugResponse = await fetch(`${API_BASE}/api/drug-info/${symptomId}`);
         const drugData = await drugResponse.json();
         setDrugInfo(drugData);
       } catch (error) {
         console.error('Error fetching data:', error);
+        // Provide sample data if backend is not available
+        const sampleData = getSampleSymptomData(symptomId);
+        setResult(sampleData);
+        setDrugInfo({
+          commonMedications: ['Ibuprofen', 'Acetaminophen', 'Aspirin'],
+          relatedDrugs: []
+        });
       }
     } else {
       setResult(null);
@@ -43,13 +90,46 @@ const DentalSymptomChecker = () => {
     }
   };
 
+  const getSampleSymptomData = (symptomId) => {
+    const symptomName = symptoms.find(s => s.id === symptomId)?.name || 'Unknown Symptom';
+    
+    const sampleData = {
+      'toothache': {
+        name: 'Toothache / Tooth Pain',
+        possibleCauses: ['Tooth decay', 'Dental abscess', 'Cracked tooth', 'Exposed tooth root'],
+        symptoms: ['Sharp or throbbing pain', 'Pain when biting', 'Sensitivity to hot/cold', 'Swelling around tooth'],
+        advice: 'Rinse with warm salt water and take over-the-counter pain relievers. Avoid very hot or cold foods.',
+        urgency: 'Moderate',
+        preventiveMeasures: ['Regular dental checkups', 'Proper oral hygiene', 'Limit sugary foods', 'Use fluoride toothpaste']
+      },
+      'sensitivity': {
+        name: 'Tooth Sensitivity',
+        possibleCauses: ['Worn enamel', 'Exposed tooth roots', 'Cavities', 'Cracked teeth'],
+        symptoms: ['Sharp pain with hot/cold foods', 'Discomfort with sweet foods', 'Pain when brushing'],
+        advice: 'Use desensitizing toothpaste and avoid acidic foods. Consider a soft-bristled toothbrush.',
+        urgency: 'Low',
+        preventiveMeasures: ['Use fluoride mouthwash', 'Gentle brushing technique', 'Avoid acidic foods', 'Regular dental visits']
+      }
+    };
+
+    return sampleData[symptomId] || {
+      name: symptomName,
+      possibleCauses: ['Various dental conditions', 'Poor oral hygiene', 'Underlying health issues'],
+      symptoms: ['Discomfort or pain', 'Changes in mouth appearance', 'Difficulty eating or speaking'],
+      advice: 'Consult with a dental professional for proper diagnosis and treatment.',
+      urgency: 'Moderate',
+      preventiveMeasures: ['Maintain good oral hygiene', 'Regular dental checkups', 'Healthy diet', 'Avoid tobacco']
+    };
+  };
+
   const handleSearch = async () => {
+    const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:3000';
     if (searchQuery.trim() === '') {
       setSearchResults([]);
       return;
     }
     try {
-      const response = await fetch(`http://localhost:3000/api/search?q=${encodeURIComponent(searchQuery)}`);
+      const response = await fetch(`${API_BASE}/api/search?q=${encodeURIComponent(searchQuery)}`);
       const data = await response.json();
       setSearchResults(data);
     } catch (error) {
@@ -59,7 +139,7 @@ const DentalSymptomChecker = () => {
 
   return (
     <div className="app-container">
-      <h1 className="app-title">Dental Symptom Checker</h1>
+      <h1 className="app-title">DentaCheck</h1>
       
       <div className="search-container">
         <input
@@ -89,13 +169,13 @@ const DentalSymptomChecker = () => {
 
       <div className="symptom-checker">
         <div className="symptom-select">
-          <label htmlFor="symptom-select">Or select a symptom:</label>
+          <label htmlFor="symptom-select">Common Symptoms - Select one:</label>
           <select
             id="symptom-select"
             value={selectedSymptom}
             onChange={(e) => handleSymptomChange(e.target.value)}
           >
-            <option value="">Select a symptom</option>
+            <option value="">Choose a common dental symptom...</option>
             {symptoms.map(symptom => (
               <option key={symptom.id} value={symptom.id}>{symptom.name}</option>
             ))}
@@ -121,7 +201,7 @@ const DentalSymptomChecker = () => {
               <AlertTriangle className="icon" />
               <div>
                 <h3>Urgency</h3>
-                <p className={`urgency-${result.urgency.toLowerCase()}`}>{result.urgency}</p>
+                <p className={`urgency-${result.urgency ? result.urgency.toLowerCase() : 'low'}`}>{result.urgency || 'Low'}</p>
               </div>
             </div>
             
@@ -176,7 +256,7 @@ const InfoSection = ({ icon, title, items }) => (
     <div>
       <h3>{title}</h3>
       <ul>
-        {items.map((item, index) => (
+        {items && items.map((item, index) => (
           <li key={index}>{item}</li>
         ))}
       </ul>
