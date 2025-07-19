@@ -3,16 +3,16 @@
   margin: 0 auto;
   padding: 2rem;
   min-height: 100vh;
+  background: #ffffff;
 }
 
 .app-title {
   text-align: center;
-  color: white;
+  color: #2d3748;
   margin-bottom: 3rem;
   font-size: 3rem;
   font-weight: 700;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);
+  background: linear-gradient(135deg, #3182ce 0%, #805ad5 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -25,11 +25,11 @@
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
   overflow: hidden;
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.9);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
 }
 
 .search-input {
@@ -50,7 +50,7 @@
 
 .search-button {
   padding: 1rem 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #3182ce;
   color: white;
   border: none;
   cursor: pointer;
@@ -61,18 +61,17 @@
 }
 
 .search-button:hover {
-  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-  transform: translateY(-2px);
+  background: #2c5282;
+  transform: translateY(-1px);
 }
 
 .search-results {
   margin-bottom: 2rem;
   padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
 }
 
 .search-results h3 {
@@ -92,35 +91,34 @@
   padding: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  border-radius: 12px;
+  border-radius: 8px;
   margin-bottom: 0.5rem;
-  background: rgba(102, 126, 234, 0.05);
-  border: 1px solid transparent;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
   font-weight: 500;
   color: #4a5568;
 }
 
 .search-result-item:hover {
-  background: rgba(102, 126, 234, 0.1);
-  border-color: rgba(102, 126, 234, 0.2);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+  background: #edf2f7;
+  border-color: #3182ce;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.15);
 }
 
 .symptom-checker {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   padding: 2.5rem;
   margin-bottom: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #e2e8f0;
   transition: all 0.3s ease;
 }
 
 .symptom-checker:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
 .symptom-select {
@@ -155,8 +153,8 @@
 
 .symptom-select select:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
 }
 
 .symptom-result {
@@ -181,7 +179,7 @@
   font-weight: 700;
   text-align: center;
   padding: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3182ce 0%, #805ad5 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -192,15 +190,15 @@
   align-items: flex-start;
   margin-bottom: 2rem;
   padding: 1.5rem;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-  border-radius: 16px;
-  border-left: 4px solid #667eea;
+  background: #f7fafc;
+  border-radius: 8px;
+  border-left: 4px solid #3182ce;
   transition: all 0.3s ease;
 }
 
 .info-section:hover {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-  transform: translateX(5px);
+  background: #edf2f7;
+  transform: translateX(3px);
 }
 
 .info-section .icon {
@@ -208,7 +206,7 @@
   width: 28px;
   height: 28px;
   flex-shrink: 0;
-  color: #667eea;
+  color: #3182ce;
 }
 
 .info-section h3 {
@@ -234,7 +232,7 @@
 
 .info-section li::before {
   content: "•";
-  color: #667eea;
+  color: #3182ce;
   font-weight: bold;
   position: absolute;
   left: 0;
@@ -278,9 +276,9 @@
 .drug-info {
   margin-top: 2rem;
   padding: 2rem;
-  background: linear-gradient(135deg, rgba(56, 161, 105, 0.1) 0%, rgba(34, 197, 94, 0.1) 100%);
-  border-radius: 20px;
-  border: 1px solid rgba(56, 161, 105, 0.2);
+  background: #f0fff4;
+  border-radius: 8px;
+  border: 1px solid #c6f6d5;
 }
 
 .drug-info h3 {
@@ -308,11 +306,12 @@
 .drug-info li {
   margin-bottom: 1rem;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 12px;
+  background: #ffffff;
+  border-radius: 6px;
   color: #2d3748;
   font-weight: 500;
   border-left: 3px solid #48bb78;
+  border: 1px solid #e2e8f0;
 }
 
 .drug-info strong {
@@ -320,18 +319,17 @@
 }
 
 .prevention-tips {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
+  background: #ffffff;
+  border-radius: 12px;
   padding: 2.5rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
   transition: all 0.3s ease;
 }
 
 .prevention-tips:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
 .prevention-tips h2 {
@@ -340,7 +338,7 @@
   font-size: 2rem;
   font-weight: 700;
   text-align: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3182ce 0%, #805ad5 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -355,14 +353,15 @@
 
 .prevention-tips li {
   padding: 1.25rem;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-  border-radius: 16px;
-  border-left: 4px solid #667eea;
+  background: #f7fafc;
+  border-radius: 8px;
+  border-left: 4px solid #3182ce;
   color: #4a5568;
   font-weight: 500;
   transition: all 0.3s ease;
   position: relative;
   padding-left: 3rem;
+  border: 1px solid #e2e8f0;
 }
 
 .prevention-tips li::before {
@@ -377,8 +376,23 @@
 }
 
 .prevention-tips li:hover {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-  transform: translateX(5px);
+  background: #edf2f7;
+  transform: translateX(3px);
+}
+
+/* Add subtle pattern background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(49, 130, 206, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(128, 90, 213, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 @media (max-width: 768px) {
@@ -393,11 +407,11 @@
   
   .symptom-checker, .prevention-tips {
     padding: 1.5rem;
-    border-radius: 16px;
+    border-radius: 12px;
   }
   
   .search-container {
-    border-radius: 25px;
+    border-radius: 12px;
   }
   
   .info-section {
